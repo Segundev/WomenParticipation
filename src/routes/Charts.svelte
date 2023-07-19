@@ -4,7 +4,7 @@
   import Legend from "$lib/Legend.svelte";
   import data from "$lib/data.json";
   import { mean, rollups, extent } from "d3-array";
-  import { fade } from "svelte/transition";
+  import { fly, fade } from "svelte/transition";
   import {
     forceSimulation,
     forceX,
@@ -119,70 +119,73 @@
 <Legend {colorScale} bind:hoveredContinent />
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<div
-  class="chart-container"
-  bind:clientWidth={width}
-  on:click={() => {
-    groupByContinent = !groupByContinent;
-    hovered = null;
-  }}
->
-  <svg {width} {height}>
-    <AxisY {yScale} {groupByContinent} />
-    <!-- svelte-ignore a11y-no-static-element-interactions -->
-    <g
-      class="inner-chart"
-      transform="translate({margin.left}, {margin.top})"
-      on:mouseleave={() => (hovered = null)}
-    >
-      <AxisX {xScale} height={innerHeight} width={innerWidth} {margin} />
+<div class="chart-wrapper" style="width:{hovered ? width - 900 : width}">
+  <div
+    class="chart-container"
+    bind:clientWidth={width}
+    on:click={() => {
+      groupByContinent = !groupByContinent;
+      hovered = null;
+    }}
+  >
+    <svg {width} {height}>
+      <AxisY {yScale} {groupByContinent} />
+      <!-- svelte-ignore a11y-no-static-element-interactions -->
+      <g
+        class="inner-chart"
+        transform="translate({margin.left}, {margin.top})"
+        on:mouseleave={() => (hovered = null)}
+      >
+        <AxisX {xScale} height={innerHeight} width={innerWidth} {margin} />
 
-      {#each nodes as node, i}
-        <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-        <circle
-          in:fade={{ delay: 200 + 10 * i, duration: 400 }}
-          cx={node.x}
-          cy={node.y}
-          r={radiusScale(node.Fem_Pop)}
-          fill={node.Country === "Nigeria"
-            ? "#00800D"
-            : colorScale(node.Region)}
-          on:mouseover={() => (hovered = node)}
-          on:focus={() => (hovered = node)}
-          tabindex="0"
-          opacity={hovered || hoveredContinent
-            ? hovered === node || hoveredContinent === node.Region
-              ? 1
-              : 0.3
-            : 1}
-          stroke={hovered || hoveredContinent
-            ? hovered === node || hoveredContinent === node.Region
-              ? "black"
-              : "transparent"
-            : "#00000090"}
-          on:click={(event) => {
-            event.stopImmediatePropagation();
-          }}
-        />
-      {/each}
-    </g>
-  </svg>
-  {#if hovered}
-    <Tooltip data={hovered} {colorScale} {width} />
-  {/if}
+        {#each nodes as node, i}
+          <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+          <circle
+            in:fade={{ delay: 200 + 10 * i, duration: 400 }}
+            cx={node.x}
+            cy={node.y}
+            r={radiusScale(node.Fem_Pop)}
+            fill={node.Country === "Nigeria"
+              ? "#00800D"
+              : colorScale(node.Region)}
+            on:mouseover={() => (hovered = node)}
+            on:focus={() => (hovered = node)}
+            tabindex="0"
+            opacity={hovered || hoveredContinent
+              ? hovered === node || hoveredContinent === node.Region
+                ? 1
+                : 0.3
+              : 1}
+            stroke={hovered || hoveredContinent
+              ? hovered === node || hoveredContinent === node.Region
+                ? "black"
+                : "transparent"
+              : "#00000090"}
+            on:click={(event) => {
+              event.stopImmediatePropagation();
+            }}
+          />
+        {/each}
+      </g>
+    </svg>
+    {#if hovered}
+      <Tooltip data={hovered} {colorScale} {width} />
+    {/if}
+  </div>
+  <div>
+    {#if hovered}
+      <aside transition:fly={{ x: 200, delay: 400, duration: 800 }}>
+        <h3>More Information</h3>
+        <h5>Women in Parliament</h5>
+        <p>{hovered.Parliamentary_Participation}</p>
+        <h5>Vulnearable Unemployment</h5>
+        <p>{hovered.Vulnerable_Employment}</p>
+        <h5>Vulnearable Unemployment</h5>
+        <p>{hovered.Vulnerable_Employment}</p>
+      </aside>
+    {/if}
+  </div>
 </div>
-
-{#if hovered}
-  <aside>
-    <h3>More Information</h3>
-    <h5>Women in Parliament</h5>
-    <p>{hovered.Parliamentary_Participation}</p>
-    <h5>Vulnearable Unemployment</h5>
-    <p>{hovered.Vulnerable_Employment}</p>
-    <h5>Vulnearable Unemployment</h5>
-    <p>{hovered.Vulnerable_Employment}</p>
-  </aside>
-{/if}
 
 <style>
   .chart-container {
