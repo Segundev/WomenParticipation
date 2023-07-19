@@ -56,6 +56,7 @@
     font-weight: 300;
     line-height: 2;
     margin-bottom: 1rem;
+    color: var(--raven);
   }
 
   .intro-text-wrapper button {
@@ -73,9 +74,9 @@
     background-color: var(--cerise);
   }
 
-  @media (max-width: 370px) {
+  @media (max-width: 650px) {
     .welcome-intro {
-      max-width: 370px;
+      max-width: 350px;
       margin: 0 auto;
     }
 
@@ -85,7 +86,7 @@
     }
 
     .intro-wrapper h1 {
-      font-size: 1rem;
+      font-size: 1.75rem;
     }
   }
 </style>

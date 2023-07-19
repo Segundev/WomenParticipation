@@ -61,20 +61,21 @@
     max-width: 400px;
     padding: 0 20px;
     padding-bottom: 1.2rem;
-    border-left: 5px solid var(--venus);
+    border-left: 5px solid var(--hemp);
     background-color: var(--whitesmoke);
     overflow: hidden;
     z-index: 99;
   }
 
   aside h5 {
+    font-size: 1rem;
     font-weight: 600;
     padding-top: 1.2rem;
   }
 
   aside p {
-    font-size: 0.8rem;
-    line-height: 1.4;
+    font-size: 0.9rem;
+    line-height: 1.75;
     font-weight: 300;
     color: var(--raven);
   }
