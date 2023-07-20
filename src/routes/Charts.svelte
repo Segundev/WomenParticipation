@@ -176,13 +176,23 @@
   </div>
   <div>
     {#if hovered}
-      <aside transition:fly={{ x: 200, delay: 400, duration: 800 }}>
-        <h5>More Information</h5>
+      <aside class:active in:fly={{ x: 200, delay: 400, duration: 800 }}>
+        <div class="aside-flex">
+          <h5>More Information</h5>
+          <svg
+            on:click={() => (active = true)}
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            ><title>close</title><path
+              d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
+            /></svg
+          >
+        </div>
         <h5>Women in Parliament</h5>
         <p>{hovered.Parliamentary_Participation}</p>
-        <h5>Vulnearable Unemployment</h5>
-        <p>{hovered.Vulnerable_Employment}</p>
-        <h5>Vulnearable Unemployment</h5>
+        <h5>Gender Based Violence</h5>
+        <p>{hovered.GBV}</p>
+        <h5>Vulnerable Unemployment</h5>
         <p>{hovered.Vulnerable_Employment}</p>
       </aside>
     {/if}
@@ -258,7 +268,16 @@
     overflow: hidden;
     z-index: 999;
   }
+  .aside-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
+  .aside-flex svg {
+    width: 30px;
+    height: 30px;
+  }
   aside h5 {
     font-size: 1rem;
     font-weight: 600;
@@ -270,6 +289,10 @@
     line-height: 1.75;
     font-weight: 300;
     color: var(--raven);
+  }
+
+  aside .active {
+    opacity: 0;
   }
 
   @media (max-width: 650px) {
