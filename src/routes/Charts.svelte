@@ -34,11 +34,11 @@
     .map((d) => d[0]);
 
   const colorRange = [
-    "#8dd3c7",
-    "#ffffb3",
-    "#bebada",
-    "#fb8072",
-    "#80b1d3",
+    "#80A1C1",
+    "#EEE3AB",
+    "#D9CFC1",
+    "#A77E58",
+    "#BA3F1D",
     "#fdb462",
   ];
 
@@ -52,7 +52,7 @@
 
   let radiusScale = scaleSqrt()
     .domain(extent(filteredData, (d) => d.Fem_Pop))
-    .range([6, 24]);
+    .range(width < 650 ? [6, 16] : [6, 24]);
 
   let yScale = scaleBand()
     .domain(continents)
@@ -81,11 +81,11 @@
       )
       .force(
         "collide",
-        forceCollide().radius((d) => radiusScale(d.Fem_Pop))
+        forceCollide().radius((d) => radiusScale(d.Fem_Pop) + 2)
       )
-      .force("charge", forceManyBody().strength(-5))
-      .alpha(0.3) // [0, 1] The rate at which the simulation finishes. You should increase this if you want a faster simulation, or decrease it if you want more "movement" in the simulation.
-      .alphaDecay(0.0005) // [0, 1] The rate at which the simulation alpha approaches 0. you should decrease this if your bubbles are not completing their transitions between simulation states.
+
+      .alpha(1) // [0, 1] The rate at which the simulation finishes. You should increase this if you want a faster simulation, or decrease it if you want more "movement" in the simulation.
+      .alphaDecay(0.09) // [0, 1] The rate at which the simulation alpha approaches 0. you should decrease this if your bubbles are not completing their transitions between simulation states.
       .restart();
   }
 
@@ -107,13 +107,15 @@
   <li>Structure</li>
 </ul> -->
 <div class="title">
-  <h1>
-    Women Representation Across Various Country's Lower Parliamentary House
-  </h1>
-  <p>
-    Explore the the visualisation by clicking on the Chart to show Regional
-    trend
-  </p>
+  <h1>How many Women sit at your Country House of Legislature?</h1>
+  <div class="title-hover">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+      ><title>gesture-double-tap</title><path
+        d="M10,9A1,1 0 0,1 11,8A1,1 0 0,1 12,9V13.47L13.21,13.6L18.15,15.79C18.68,16.03 19,16.56 19,17.14V21.5C18.97,22.32 18.32,22.97 17.5,23H11C10.62,23 10.26,22.85 10,22.57L5.1,18.37L5.84,17.6C6.03,17.39 6.3,17.28 6.58,17.28H6.8L10,19V9M11,5A4,4 0 0,1 15,9C15,10.5 14.2,11.77 13,12.46V11.24C13.61,10.69 14,9.89 14,9A3,3 0 0,0 11,6A3,3 0 0,0 8,9C8,9.89 8.39,10.69 9,11.24V12.46C7.8,11.77 7,10.5 7,9A4,4 0 0,1 11,5M11,3A6,6 0 0,1 17,9C17,10.7 16.29,12.23 15.16,13.33L14.16,12.88C15.28,11.96 16,10.56 16,9A5,5 0 0,0 11,4A5,5 0 0,0 6,9C6,11.05 7.23,12.81 9,13.58V14.66C6.67,13.83 5,11.61 5,9A6,6 0 0,1 11,3Z"
+      /></svg
+    >
+    <p>Hover or Click to Interact</p>
+  </div>
 </div>
 
 <Legend {colorScale} bind:hoveredContinent />
@@ -175,7 +177,7 @@
   <div>
     {#if hovered}
       <aside transition:fly={{ x: 200, delay: 400, duration: 800 }}>
-        <h3>More Information</h3>
+        <h5>More Information</h5>
         <h5>Women in Parliament</h5>
         <p>{hovered.Parliamentary_Participation}</p>
         <h5>Vulnearable Unemployment</h5>
@@ -192,20 +194,44 @@
     margin: 0.5rem 2rem;
   }
   .title {
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
   .title h1 {
     text-align: center;
     font-size: 1.75rem;
     font-weight: 900;
+    color: var(--mako);
     margin: 1.5rem;
-    margin-bottom: 0.5rem;
+    padding-bottom: 1rem;
+    margin-bottom: 0;
+    border-bottom: 1px solid #ccc;
   }
 
-  .title p {
-    color: var(--hemp);
-    border-bottom: 1px solid var(--shaft);
+  .title-hover p {
+    color: var(--whitesmoke);
+    font-weight: 600;
   }
+
+  .title-hover {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border-radius: 12px;
+    width: 240px;
+    height: 40px;
+    background: var(--blumine);
+    margin-top: 1rem;
+  }
+
+  .title-hover svg {
+    width: 30px;
+    height: 30px;
+    fill: var(--whitesmoke);
+  }
+
   :global(.tick text, .axis-title) {
     font-size: 12px; /* How big our text is */
     font-weight: 400; /* How bold our text is */
@@ -234,28 +260,24 @@
   }
 
   aside h5 {
+    font-size: 1rem;
     font-weight: 600;
     padding-top: 1.2rem;
   }
 
   aside p {
-    font-size: 0.8rem;
-    line-height: 1.4;
+    font-size: 0.9rem;
+    line-height: 1.75;
     font-weight: 300;
     color: var(--raven);
   }
 
-  @media (max-width: 540px) {
+  @media (max-width: 650px) {
     .title h1 {
-      font-size: 1.25rem;
+      font-size: 1.65rem;
       font-weight: 900;
       margin: 1rem;
       margin-bottom: 0.5rem;
     }
-  }
-
-  .title p {
-    color: var(--hemp);
-    border-bottom: 1px solid var(--shaft);
   }
 </style>

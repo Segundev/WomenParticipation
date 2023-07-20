@@ -56,7 +56,7 @@
     position: absolute;
     top: 70px;
     right: -500px;
-    transition: all 0.5s;
+    transition: all 1s;
     width: 300px;
     max-width: 400px;
     padding: 0 20px;
