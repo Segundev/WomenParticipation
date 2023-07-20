@@ -20,7 +20,7 @@
   let width = 400;
   let height = 500;
 
-  const margin = { top: 0, right: 90, bottom: 0, left: 90 };
+  const margin = { top: 0, right: 10, bottom: 0, left: 90 };
 
   $: innerWidth = width - margin.left - margin.right;
   let innerHeight = height - margin.top - margin.bottom;
@@ -52,7 +52,7 @@
 
   let radiusScale = scaleSqrt()
     .domain(extent(filteredData, (d) => d.Fem_Pop))
-    .range(width < 650 ? [6, 16] : [6, 24]);
+    .range(width < 650 ? [6, 20] : [6, 24]);
 
   let yScale = scaleBand()
     .domain(continents)
@@ -64,7 +64,7 @@
   simulation.on("tick", () => {
     nodes = simulation.nodes();
   });
-  $: console.log(innerWidth);
+
   $: {
     simulation
       .force(
@@ -81,7 +81,7 @@
       )
       .force(
         "collide",
-        forceCollide().radius((d) => radiusScale(d.Fem_Pop) + 2)
+        forceCollide().radius((d) => radiusScale(d.Fem_Pop) + 1)
       )
 
       .alpha(1) // [0, 1] The rate at which the simulation finishes. You should increase this if you want a faster simulation, or decrease it if you want more "movement" in the simulation.
@@ -233,9 +233,9 @@
   }
 
   :global(.tick text, .axis-title) {
-    font-size: 12px; /* How big our text is */
-    font-weight: 400; /* How bold our text is */
-    fill: hsla(212, 10%, 53%, 1); /* The color of our text */
+    font-size: 14px; /* How big our text is */
+    font-weight: 600; /* How bold our text is */
+    fill: var(--mako); /* The color of our text */
     user-select: none; /* Prevents text from being selected */
   }
 
@@ -278,6 +278,10 @@
       font-weight: 900;
       margin: 1rem;
       margin-bottom: 0.5rem;
+    }
+
+    .chart-container {
+      margin-left: 0.5rem;
     }
   }
 </style>
