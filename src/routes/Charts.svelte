@@ -98,8 +98,9 @@
 
   let groupByContinent = false;
   let hovered, hoveredContinent;
-
+  let moredetails;
   let active;
+  let search;
   $: console.log(chamber);
 </script>
 
@@ -112,6 +113,13 @@
   <h1>How many Women sit at your Country House of Legislature?</h1>
 
   <div class="navigation">
+    <div class="search">
+      <input
+        type="text"
+        bind:value={search}
+        placeholder="Search for your Country"
+      />
+    </div>
     <ul>
       <li on:click={() => (chamber = "Lower_Percentage")}>Lower Chamber</li>
       <li on:click={() => (chamber = "Upper_Percentage")}>Upper Chamber</li>
@@ -156,10 +164,9 @@
             cx={node.x}
             cy={node.y}
             r={radiusScale(node.Fem_Pop)}
-            fill={node.Country === "Nigeria"
-              ? "#00800D"
-              : colorScale(node.Region)}
+            fill={search === node.Country ? "#8CEF3F" : colorScale(node.Region)}
             on:mouseover={() => (hovered = node)}
+            on:click={() => (moredetails = node)}
             on:focus={() => (hovered = node)}
             tabindex="0"
             opacity={hovered || hoveredContinent
@@ -183,29 +190,28 @@
       <Tooltip data={hovered} {colorScale} {width} />
     {/if}
   </div>
-  <div>
-    {#if hovered}
-      <aside class:active in:fly={{ x: 200, delay: 400, duration: 800 }}>
-        <div class="aside-flex">
-          <h5>More Information</h5>
-          <svg
-            on:click={() => (active = true)}
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            ><title>close</title><path
-              d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
-            /></svg
-          >
-        </div>
-        <h5>Women in Parliament</h5>
-        <p>{hovered.Parliamentary_Participation}</p>
-        <h5>Gender Based Violence</h5>
-        <p>{hovered.GBV}</p>
-        <h5>Vulnerable Unemployment</h5>
-        <p>{hovered.Vulnerable_Employment}</p>
-      </aside>
-    {/if}
-  </div>
+</div>
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<div
+  class="aside-section"
+  on:click={() => {
+    moredetails = null;
+  }}
+>
+  {#if moredetails}
+    <aside transition:fly={{ x: 200, delay: 400, duration: 800 }}>
+      <div class="aside-flex">
+        <h5>More Information</h5>
+      </div>
+      <h5>Women in Parliament</h5>
+      <p>{hovered.Parliamentary_Participation}</p>
+      <h5>Gender Based Violence</h5>
+      <p>{hovered.GBV}</p>
+      <h5>Vulnerable Unemployment</h5>
+      <p>{hovered.Vulnerable_Employment}</p>
+    </aside>
+  {/if}
 </div>
 
 <style>
@@ -257,11 +263,37 @@
     gap: 2rem;
   }
 
+  .search {
+    position: relative;
+    overflow: visible;
+    font-weight: 600;
+    font-size: 0.8rem;
+  }
+
+  .search input {
+    width: 100%;
+    height: 44px;
+    border-radius: 100px;
+    border: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    padding-left: 53px;
+    background: #ebebeb url(/search-icon.38e26ce0.svg) 22px no-repeat;
+    outline: none;
+  }
+
+  .search input:focus {
+    box-shadow: inset 0 0 0 3px var(--cerise);
+  }
   .navigation ul {
     display: flex;
     justify-content: center;
     align-items: center;
     list-style: none;
+    height: 40px;
   }
 
   .navigation ul li {
@@ -273,7 +305,7 @@
     background: #e9e9e9;
     border-color: #aaa;
     box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.2);
-    border-radius: 4px;
+    border-radius: 12px;
   }
 
   :global(.tick text, .axis-title) {
@@ -288,19 +320,21 @@
     cursor: pointer;
   }
 
-  aside {
+  .aside-section {
     position: absolute;
     top: 70px;
     right: 0px;
     transition: all 0.5s;
     width: 300px;
     max-width: 400px;
+  }
+
+  aside {
     padding: 0 20px;
     padding-bottom: 1.2rem;
     border-left: 5px solid var(--venus);
-    background-color: var(--whitesmoke);
     overflow: hidden;
-    z-index: 999;
+    background-color: var(--whitesmoke);
   }
   .aside-flex {
     display: flex;
@@ -308,9 +342,14 @@
     align-items: center;
   }
 
-  .aside-flex svg {
+  .aside-section svg {
     width: 30px;
     height: 30px;
+    cursor: pointer;
+  }
+
+  .aside-flex .active {
+    opacity: 0;
   }
   aside h5 {
     font-size: 1rem;
@@ -325,9 +364,6 @@
     color: var(--raven);
   }
 
-  aside .active {
-    opacity: 0;
-  }
   ul {
     padding-left: 0;
   }
