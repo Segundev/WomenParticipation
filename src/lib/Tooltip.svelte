@@ -23,8 +23,21 @@
   bind:clientWidth={tooltipWidth}
 >
   <h5>{data.Country}</h5>
+  <div class="barchart">
+    <span>Female</span>
+    <div class="female" style="width:{data.Lower_Percentage}px" />
+    <div class="male" style="width:{100 - data.Lower_Percentage}px" />
+    <span>Male</span>
+  </div>
   <p>
-    Percentage of Women: <span class="figures"> {data.Lower_Percentage}%</span>
+    Percentage of Women: <span class="female-figures">
+      {data.Lower_Percentage}%</span
+    >
+  </p>
+  <p>
+    Percentage of Men: <span class="male-figures">
+      {100 - data.Lower_Percentage}%</span
+    >
   </p>
   <div class="seat">
     <p>Total Seats: <span> {data.Lower_STN}</span></p>
@@ -70,6 +83,7 @@
 
   .tooltip p {
     color: #afafaf;
+    font-size: 14px;
   }
 
   .tooltip .seat {
@@ -83,11 +97,41 @@
     color: #525252;
   }
 
-  .tooltip .figures {
+  .tooltip .female-figures {
     color: #cc3366;
+  }
+
+  .tooltip .male-figures {
+    color: #132841;
   }
 
   div p {
     color: var(--shaft);
+  }
+
+  .barchart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 15px;
+    color: #ffffff;
+    font-size: 10px;
+    margin-top: 5px;
+  }
+
+  .barchart span {
+    color: #999999;
+    margin: 2px;
+  }
+
+  .female {
+    background-color: #cc3366;
+    height: 100%;
+  }
+
+  .male {
+    background-color: #132841;
+    height: 100%;
   }
 </style>

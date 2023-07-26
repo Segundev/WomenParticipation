@@ -3,6 +3,7 @@
   import AxisY from "$lib/AxisY.svelte";
   import Legend from "$lib/Legend.svelte";
   import data from "$lib/data.json";
+
   import { mean, rollups, extent } from "d3-array";
   import { fly, fade } from "svelte/transition";
   import {
@@ -15,8 +16,8 @@
   import { scaleLinear, scaleBand, scaleOrdinal, scaleSqrt } from "d3-scale";
   import Tooltip from "$lib/Tooltip.svelte";
   // write a code that takes the original data and input either lower or upper
-  let chamber = "Lower_Percentage";
-  const filteredData = data.filter((d) => d.chamber !== null);
+  $: chamber = "Lower_Percentage";
+  $: filteredData = data.filter((d) => d[chamber] !== null);
 
   let width = 400;
   let height = 500;
@@ -51,7 +52,7 @@
     .domain([0, 62]) // Alternatively, we could pass .domain(extent(data, d => d.happiness))
     .range([0, innerWidth]);
 
-  let radiusScale = scaleSqrt()
+  $: radiusScale = scaleSqrt()
     .domain(extent(filteredData, (d) => d.Fem_Pop))
     .range(width < 650 ? [6, 20] : [6, 24]);
 
@@ -60,9 +61,9 @@
     .range([innerHeight, 0])
     .paddingOuter(0.5);
 
-  let simulation = forceSimulation(filteredData);
+  $: simulation = forceSimulation(filteredData);
   let nodes = [];
-  simulation.on("tick", () => {
+  $: simulation.on("tick", () => {
     nodes = simulation.nodes();
   });
 
@@ -96,12 +97,26 @@
   }
  */
 
+  function asideEvent(event, node) {
+    moredetails = node;
+
+    if (scope.enabled === false) return;
+
+    switch (event.pointerType) {
+      case "mouse":
+      case "pen":
+        onMouseDown(event);
+        break;
+
+      // TODO touch
+    }
+  }
+
   let groupByContinent = false;
   let hovered, hoveredContinent;
   let moredetails;
   let active;
   let search;
-  $: console.log(chamber);
 </script>
 
 <!-- <ul class="navigation">
@@ -121,8 +136,26 @@
       />
     </div>
     <ul>
-      <li on:click={() => (chamber = "Lower_Percentage")}>Lower Chamber</li>
-      <li on:click={() => (chamber = "Upper_Percentage")}>Upper Chamber</li>
+      <!-- svelte-ignore a11y-click-events-have-key-events -->
+      <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+      <li
+        class:selected={chamber === "Lower_Percentage"}
+        on:click={() => {
+          chamber = "Lower_Percentage";
+        }}
+      >
+        Lower Chamber
+      </li>
+      <!-- svelte-ignore a11y-click-events-have-key-events -->
+      <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+      <li
+        class:selected={chamber === "Upper_Percentage"}
+        on:click={() => {
+          chamber = "Upper_Percentage";
+        }}
+      >
+        Upper Chamber
+      </li>
     </ul>
     <div class="title-hover">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
@@ -138,7 +171,7 @@
 <Legend {colorScale} bind:hoveredContinent />
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<div class="chart-wrapper" style="width:{hovered ? width - 900 : width}">
+<div class="chart-wrapper">
   <div
     class="chart-container"
     bind:clientWidth={width}
@@ -165,8 +198,8 @@
             cy={node.y}
             r={radiusScale(node.Fem_Pop)}
             fill={search === node.Country ? "#8CEF3F" : colorScale(node.Region)}
+            on:pointerdown={() => (moredetails = node)}
             on:mouseover={() => (hovered = node)}
-            on:click={() => (moredetails = node)}
             on:focus={() => (hovered = node)}
             tabindex="0"
             opacity={hovered || hoveredContinent
@@ -180,7 +213,7 @@
                 : "transparent"
               : "#00000090"}
             on:click={(event) => {
-              event.stopImmediatePropagation();
+              event.stopPropagation();
             }}
           />
         {/each}
@@ -191,25 +224,29 @@
     {/if}
   </div>
 </div>
+
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<div
-  class="aside-section"
-  on:click={() => {
-    moredetails = null;
-  }}
->
+<div class="aside-section">
   {#if moredetails}
     <aside transition:fly={{ x: 200, delay: 400, duration: 800 }}>
       <div class="aside-flex">
         <h5>More Information</h5>
+        <svg
+          on:click={() => (moredetails = null)}
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          ><title>close</title><path
+            d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
+          /></svg
+        >
       </div>
       <h5>Women in Parliament</h5>
-      <p>{hovered.Parliamentary_Participation}</p>
+      <p>{moredetails.Parliamentary_Participation}</p>
       <h5>Gender Based Violence</h5>
-      <p>{hovered.GBV}</p>
+      <p>{moredetails.GBV}</p>
       <h5>Vulnerable Unemployment</h5>
-      <p>{hovered.Vulnerable_Employment}</p>
+      <p>{moredetails.Vulnerable_Employment}</p>
     </aside>
   {/if}
 </div>
@@ -296,18 +333,31 @@
     height: 40px;
   }
 
+  .navigation ul li:first-of-type {
+    border-radius: 10px 0 0 10px;
+    border-right: 0;
+  }
+
+  .navigation ul li:last-of-type {
+    border-radius: 0px 10px 10px 0px;
+  }
+
   .navigation ul li {
     font-size: 14px;
     cursor: pointer;
     border: solid 1px #ccc;
     padding: 10px 18px;
-    color: var(--mako);
+    color: #999;
+    background: #f9f9f9;
+    border-color: #aaa;
+  }
+
+  .navigation ul li.selected {
+    color: #000;
     background: #e9e9e9;
     border-color: #aaa;
     box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.2);
-    border-radius: 12px;
   }
-
   :global(.tick text, .axis-title) {
     font-size: 14px; /* How big our text is */
     font-weight: 600; /* How bold our text is */
@@ -342,7 +392,7 @@
     align-items: center;
   }
 
-  .aside-section svg {
+  .aside-flex svg {
     width: 30px;
     height: 30px;
     cursor: pointer;

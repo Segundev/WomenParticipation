@@ -11,7 +11,7 @@
     {#if groupByContinent}
       <g
         class="tick"
-        in:fade={{ delay: index * 100 }}
+        in:fade={{ delay: index * 200 }}
         out:fade={{ duration: 200 }}
       >
         <text class="axis-background" y={yScale(tick)}>{tick}</text>
