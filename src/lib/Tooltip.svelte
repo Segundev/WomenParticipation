@@ -2,7 +2,7 @@
   import { fly, fade } from "svelte/transition";
   export let width;
   export let data;
-  export let colorScale;
+  export let chamber;
 
   let tooltipWidth;
   const xNudge = 15;
@@ -25,23 +25,45 @@
   <h5>{data.Country}</h5>
   <div class="barchart">
     <span>Female</span>
-    <div class="female" style="width:{data.Lower_Percentage}px" />
-    <div class="male" style="width:{100 - data.Lower_Percentage}px" />
+    <div
+      class="female"
+      style="width:{chamber === `Lower_Percentage`
+        ? data.Lower_Percentage
+        : data.Upper_Percentage}px"
+    />
+    <div
+      class="male"
+      style="width:{chamber === `Lower_Percentage`
+        ? 100 - data.Lower_Percentage
+        : 100 - data.Upper_Percentage}px"
+    />
     <span>Male</span>
   </div>
   <p>
     Percentage of Women: <span class="female-figures">
-      {data.Lower_Percentage}%</span
+      {chamber === `Lower_Percentage`
+        ? data.Lower_Percentage
+        : data.Upper_Percentage}%</span
     >
   </p>
   <p>
     Percentage of Men: <span class="male-figures">
-      {100 - data.Lower_Percentage}%</span
+      {chamber === `Lower_Percentage`
+        ? 100 - data.Lower_Percentage
+        : 100 - data.Upper_Percentage}%</span
     >
   </p>
   <div class="seat">
-    <p>Total Seats: <span> {data.Lower_STN}</span></p>
-    <p>Number of Women: <span class="figures"> {data.Lower_WC}</span></p>
+    <p>
+      Total Seats: <span>
+        {chamber === `Lower_Percentage` ? data.Lower_STN : data.Upper_STN}</span
+      >
+    </p>
+    <p>
+      Number of Women: <span class="figures">
+        {chamber === `Lower_Percentage` ? data.Lower_WC : data.Upper_WC}</span
+      >
+    </p>
   </div>
   <p>Compulsory Voting: <span> {data.Compulsory_Voting}</span></p>
   <p>Structure: <span> {data.Structure}</span></p>
