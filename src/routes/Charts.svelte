@@ -81,7 +81,7 @@
       .force(
         "y",
         forceY()
-          .y((d) => (groupByContinent ? yScale(d.Region) : innerHeight / 2))
+          .y((d) => yScale(d.Region))
           .strength(0.5)
       )
       .force(
