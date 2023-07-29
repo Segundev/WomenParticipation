@@ -179,7 +179,7 @@
 <svelte:window on:keydown={navigateList} />
 <div class="main-container">
   <div class="title">
-    <h1>How many Women sit at your Country House of Legislature?</h1>
+    <h1>How many women sit at your country's house of legislature?</h1>
 
     <div class="navigation">
       <div class="search autocomplete">
@@ -311,6 +311,7 @@
             /></svg
           >
         </div>
+        <h4 class="aside-countryheader">{moredetails.Country}</h4>
         <h5>Women in Parliament</h5>
         <p>{moredetails.Parliamentary_Participation}</p>
         <h5>Gender Based Violence</h5>
@@ -503,6 +504,19 @@
     font-size: 1rem;
     font-weight: 600;
     padding-top: 1.2rem;
+  }
+
+  aside h5:first-of-type {
+    padding-top: 0.2rem;
+  }
+
+  .aside-countryheader {
+    text-align: center;
+    margin: 0;
+    font-size: 16px;
+    padding-top: 1.2rem;
+    font-weight: 900;
+    color: var(--cerise);
   }
 
   aside p {

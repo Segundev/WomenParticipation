@@ -11,7 +11,7 @@
 </script>
 
 <main>
-  <Header />
+  <Header on:backHomePage={(e) => (state = e.detail)} />
   {#if state === "welcome"}
     <IntroPage on:clickExplore={handleMessage} />
   {:else if state === "charts"}

@@ -1,9 +1,14 @@
 <script>
+  import { createEventDispatcher } from "svelte";
   let active = false;
+
+  const dispatch = createEventDispatcher();
 </script>
 
 <header>
-  <div class="logo">DataVizAfrica</div>
+  <div class="logo" on:click={() => dispatch("backHomePage", "welcome")}>
+    DataVizAfrica
+  </div>
   <div class="help-wrapper">
     <svg
       on:click={() => (active = !active)}
