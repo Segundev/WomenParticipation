@@ -542,7 +542,7 @@
     }
 
     .navigation {
-      flex-direction: column;
+      flex-direction: column-reverse;
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
