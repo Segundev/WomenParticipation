@@ -12,13 +12,13 @@
     <h1>Women's Representation in Leadership</h1>
     <div class="intro-text-wrapper">
       <p>
-        The dashboard provides a comprehensive and interactive overview of
-        women's participation in parliaments across various countries globally.
-        The data collected were sourced from Inter-Parliamentary Union and World
-        Bank. You can explore the current state of women's representation in
-        different political systems. Explore the dashboard, engage with the
-        data, in order to continue the advocay for increased women's
-        representation in parliaments worldwide.
+        The dashboard provides a interactive overview of women's participation
+        in parliaments across various countries globally. The data collected
+        were sourced from Inter-Parliamentary Union and World Bank. You can
+        explore the current state of women's representation in different
+        political systems. Explore the dashboard, engage with the data, in order
+        to continue the advocay for increased women's representation in
+        parliaments worldwide.
       </p>
       <button on:click={helpPage}> Explore </button>
     </div>
@@ -124,6 +124,7 @@
 
     .intro-wrapper h1 {
       font-size: 1.75rem;
+      padding-top: 1.75rem;
     }
   }
 </style>
