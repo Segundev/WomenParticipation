@@ -301,7 +301,7 @@
     {#if moredetails}
       <aside transition:fly={{ x: 200, delay: 400, duration: 800 }}>
         <div class="aside-flex">
-          <h5>More Information</h5>
+          <h5 class="aside-countryheader">{moredetails.Country}</h5>
           <svg
             on:click={() => (moredetails = null)}
             xmlns="http://www.w3.org/2000/svg"
@@ -311,7 +311,7 @@
             /></svg
           >
         </div>
-        <h4 class="aside-countryheader">{moredetails.Country}</h4>
+
         <h5>Women in Parliament</h5>
         <p>{moredetails.Parliamentary_Participation}</p>
         <h5>Gender Based Violence</h5>
@@ -497,9 +497,6 @@
     cursor: pointer;
   }
 
-  .aside-flex .active {
-    opacity: 0;
-  }
   aside h5 {
     font-size: 1rem;
     font-weight: 600;
@@ -514,9 +511,10 @@
     text-align: center;
     margin: 0;
     font-size: 16px;
-    padding-top: 1.2rem;
+    padding-top: 1.75rem;
     font-weight: 900;
     color: var(--cerise);
+    margin-top: 2rem;
   }
 
   aside p {

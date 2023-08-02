@@ -24,7 +24,7 @@
     <h5>About</h5>
     <p>
       The Project Idea came up as a result of DataFest 2023 VizQuest data
-      visualisation <a href="https://datafest.africa/vizquest/">
+      visualisation <a href="https://datafest.africa/vizquest/" target="_blank">
         competition</a
       >. The competition offers an inclusive platform for participants to
       showcase their skills and contribute to meaningful change.
@@ -33,10 +33,13 @@
     <p>
       Data Sources from <a
         href="https://data.ipu.org/women-ranking?month=7&year=2023"
-        >Inter-Parliamentary Union Database</a
+        target="_blank">Inter-Parliamentary Union Database</a
       >
       and
-      <a href="https://data.worldbank.org/indicator/SP.POP.TOTL.FE.IN">
+      <a
+        href="https://data.worldbank.org/indicator/SP.POP.TOTL.FE.IN"
+        target="_blank"
+      >
         World Bank
       </a>. The Visualisations utilized Gender specific data from Percentage of
       Women in a Nations Lower Chamber (Parliament). Total Female population
@@ -44,18 +47,31 @@
     </p>
     <h5>Developed By</h5>
     <p>
-      <a href="https://www.linkedin.com/in/jayeola-gbenga/">Jayeola Gbenga</a>
+      <a href="https://www.linkedin.com/in/jayeola-gbenga/" target="_blank"
+        >Jayeola Gbenga</a
+      >
     </p>
     <h5>Team</h5>
     <p>
-      Data Collection by <a href="https://twitter.com/Be_NeDicta">
+      Data Collection by <a
+        href="https://twitter.com/Be_NeDicta"
+        target="_blank"
+      >
         Benedicta Elikor</a
       > and Jayeola Gbenga
     </p>
     <h5>Mentored By</h5>
-    <p><a href="https://www.linkedin.com/in/cankayali/">Can Kayali</a></p>
+    <p>
+      <a href="https://www.linkedin.com/in/cankayali/" target="_blank"
+        >Can Kayali</a
+      >
+    </p>
     <h5>Inspiration</h5>
-    <p><a href="https://www.connorrothschild.com/">Connor RothsChild</a></p>
+    <p>
+      <a href="https://www.connorrothschild.com/" target="_blank"
+        >Connor RothsChild</a
+      >
+    </p>
   </aside>
 </header>
 
