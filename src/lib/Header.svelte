@@ -24,25 +24,38 @@
     <h5>About</h5>
     <p>
       The Project Idea came up as a result of DataFest 2023 VizQuest data
-      visualisation competition. The competition offers an inclusive platform
-      for participants to showcase their skills and contribute to meaningful
-      change.
+      visualisation <a href="https://datafest.africa/vizquest/">
+        competition</a
+      >. The competition offers an inclusive platform for participants to
+      showcase their skills and contribute to meaningful change.
     </p>
     <h5>Data</h5>
     <p>
-      Data Sources from Inter-Parliamentary Union Database and World Bank. The
-      Visualisations utilized Gender specific data from Percentage of Women in a
-      Nations Lower Chamber (Parliament). Total Female population across various
-      Countries and their continent
+      Data Sources from <a
+        href="https://data.ipu.org/women-ranking?month=7&year=2023"
+        >Inter-Parliamentary Union Database</a
+      >
+      and
+      <a href="https://data.worldbank.org/indicator/SP.POP.TOTL.FE.IN">
+        World Bank
+      </a>. The Visualisations utilized Gender specific data from Percentage of
+      Women in a Nations Lower Chamber (Parliament). Total Female population
+      across various Countries and their continent
     </p>
     <h5>Developed By</h5>
-    <p>Jayeola Gbenga</p>
+    <p>
+      <a href="https://www.linkedin.com/in/jayeola-gbenga/">Jayeola Gbenga</a>
+    </p>
     <h5>Team</h5>
-    <p>Data Collection by Benedicta Elikor and Jayeola Gbenga</p>
+    <p>
+      Data Collection by <a href="https://twitter.com/Be_NeDicta">
+        Benedicta Elikor</a
+      > and Jayeola Gbenga
+    </p>
     <h5>Mentored By</h5>
-    <p>Can Kayali</p>
+    <p><a href="https://www.linkedin.com/in/cankayali/">Can Kayali</a></p>
     <h5>Inspiration</h5>
-    <p>Connor RothsChild</p>
+    <p><a href="https://www.connorrothschild.com/">Connor RothsChild</a></p>
   </aside>
 </header>
 
@@ -93,11 +106,16 @@
     font-size: var(--h5);
     font-weight: bolder;
     color: var(--whitesmoke);
+    cursor: pointer;
   }
 
   .help-icon {
     width: 35px;
     height: 35px;
     fill: var(--whitesmoke);
+  }
+
+  a {
+    color: var(--blumine);
   }
 </style>
