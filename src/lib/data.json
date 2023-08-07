@@ -290,7 +290,7 @@
   },
   {
     "Country": "Belize",
-    "Region": "South America",
+    "Region": "Central America",
     "Compulsory_Voting": "No",
     "Fem_Pop": 133578,
     "Structure": "Bicameral",
@@ -664,7 +664,7 @@
   },
   {
     "Country": "Costa Rica",
-    "Region": "South America",
+    "Region": "Central America",
     "Compulsory_Voting": "Yes",
     "Fem_Pop": 1765378,
     "Structure": "Unicameral",
@@ -902,7 +902,7 @@
   },
   {
     "Country": "El Salvador",
-    "Region": "South America",
+    "Region": "Central America",
     "Compulsory_Voting": "No",
     "Fem_Pop": 2210611,
     "Structure": "Unicameral",
@@ -1174,7 +1174,7 @@
   },
   {
     "Country": "Guatemala",
-    "Region": "South America",
+    "Region": "Central America",
     "Compulsory_Voting": "No",
     "Fem_Pop": 5401170,
     "Structure": "Unicameral",
@@ -1259,7 +1259,7 @@
   },
   {
     "Country": "Honduras",
-    "Region": "South America",
+    "Region": "Central America",
     "Compulsory_Voting": "Yes",
     "Fem_Pop": 3320492,
     "Structure": "Unicameral",
@@ -1871,7 +1871,7 @@
   },
   {
     "Country": "Mexico",
-    "Region": "South America",
+    "Region": "North America",
     "Compulsory_Voting": "No",
     "Fem_Pop": 43626495,
     "Structure": "Bicameral",
@@ -2092,7 +2092,7 @@
   },
   {
     "Country": "Nicaragua",
-    "Region": "North America",
+    "Region": "Central America",
     "Compulsory_Voting": "No",
     "Fem_Pop": 2257886,
     "Structure": "Unicameral",
@@ -2228,7 +2228,7 @@
   },
   {
     "Country": "Panama",
-    "Region": "South America",
+    "Region": "Central America",
     "Compulsory_Voting": "Yes",
     "Fem_Pop": 1411927,
     "Structure": "Unicameral",

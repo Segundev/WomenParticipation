@@ -16,6 +16,7 @@
   } from "d3-force";
   import { scaleLinear, scaleBand, scaleOrdinal, scaleSqrt } from "d3-scale";
   import Tooltip from "$lib/Tooltip.svelte";
+  import CircleLegend from "$lib/CircleLegend.svelte";
   // write a code that takes the original data and input either lower or upper
   $: chamber = "Lower_Percentage";
   $: filteredData = data.filter((d) => d[chamber] !== null);
@@ -45,6 +46,7 @@
     "#F4D6B8",
     "#9AD0D6",
     "#fdb462",
+    "#ede492",
   ];
 
   let colorScale = scaleOrdinal()
@@ -236,9 +238,10 @@
       </div>
     </div>
   </div>
-  <Legend {colorScale} bind:hoveredContinent />
+  <!-- <Legend {colorScale} bind:hoveredContinent /> -->
   <!-- svelte-ignore a11y-click-events-have-key-events -->
   <!-- svelte-ignore a11y-no-static-element-interactions -->
+
   <div class="chart-wrapper">
     <div
       class="chart-container"
@@ -248,8 +251,10 @@
         hovered = null;
       }}
     >
+      <CircleLegend {radiusScale} {margin} height={innerHeight} {width} />
       <svg {width} {height}>
         <AxisY {yScale} {groupByContinent} />
+
         <!-- svelte-ignore a11y-no-static-element-interactions -->
         <g
           class="inner-chart"
@@ -268,7 +273,7 @@
               fill={inputValue === node.Country
                 ? "#ff0000"
                 : colorScale(node.Region)}
-              on:pointerdown={() => (moredetails = node)}
+              on:click={() => (moredetails = node)}
               on:mouseover={() => (hovered = node)}
               on:focus={() => (hovered = node)}
               tabindex="0"

@@ -30,29 +30,28 @@
       style="width:{chamber === `Lower_Percentage`
         ? data.Lower_Percentage
         : data.Upper_Percentage}px"
-    />
+    >
+      <span class="female-figures">
+        {chamber === `Lower_Percentage`
+          ? data.Lower_Percentage
+          : data.Upper_Percentage}%</span
+      >
+    </div>
     <div
       class="male"
       style="width:{chamber === `Lower_Percentage`
         ? 100 - data.Lower_Percentage
         : 100 - data.Upper_Percentage}px"
-    />
+    >
+      <span class="male-figures">
+        {chamber === `Lower_Percentage`
+          ? 100 - data.Lower_Percentage
+          : 100 - data.Upper_Percentage}%</span
+      >
+    </div>
     <span>Male</span>
   </div>
-  <p>
-    Percentage of Women: <span class="female-figures">
-      {chamber === `Lower_Percentage`
-        ? data.Lower_Percentage
-        : data.Upper_Percentage}%</span
-    >
-  </p>
-  <p>
-    Percentage of Men: <span class="male-figures">
-      {chamber === `Lower_Percentage`
-        ? 100 - data.Lower_Percentage
-        : 100 - data.Upper_Percentage}%</span
-    >
-  </p>
+
   <div class="seat">
     <p>
       Total Seats: <span>
@@ -120,11 +119,13 @@
   }
 
   .tooltip .female-figures {
-    color: #cc3366;
+    color: #fff;
+    float: left;
   }
 
   .tooltip .male-figures {
-    color: #132841;
+    color: #fff;
+    float: right;
   }
 
   div p {
@@ -136,7 +137,7 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 15px;
+    height: 25px;
     color: #ffffff;
     font-size: 10px;
     margin-top: 5px;
@@ -150,10 +151,12 @@
   .female {
     background-color: #cc3366;
     height: 100%;
+    position: relative;
   }
 
   .male {
     background-color: #132841;
     height: 100%;
+    position: relative;
   }
 </style>
