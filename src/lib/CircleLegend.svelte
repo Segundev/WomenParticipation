@@ -19,10 +19,8 @@
 </script>
 
 <svg {width} height={svgHeight}>
-  <text x={width / 5} dy={10}>
-    The size of Circle represent Female population
-  </text>
-  <g class="CircleLegend" transform="translate({margin.left - 20},25)">
+  <text x={10} dy={10}> The size of Circle represent Female population </text>
+  <g class="CircleLegend" transform="translate({margin.left - 30},25)">
     {#each data2 as d}
       <circle
         r={radiusScale(+d.size)}
