@@ -43,7 +43,7 @@
 <style>
   text {
     font-size: 12px;
-    fill: rgba(53, 53, 53, 0.867);
+    fill: rgba(165, 165, 165, 0.867);
   }
   p {
     text-align: center;
